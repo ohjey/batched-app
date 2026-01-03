@@ -80,7 +80,7 @@
   }
 
   function getImageUrl(imagePath: string): string {
-    return `/${imagePath}`;
+    return imagePath;
   }
 
   function getIndicatorOffset(): number {

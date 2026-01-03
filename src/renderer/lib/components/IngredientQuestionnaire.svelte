@@ -22,7 +22,7 @@
   }
 
   function getImageUrl(imagePath: string): string {
-    return `/${imagePath}`;
+    return imagePath;
   }
 
   function handleAnswer(alreadyHave: boolean) {

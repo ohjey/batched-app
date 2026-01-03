@@ -31,7 +31,7 @@
   }
 
   function getImageUrl(imagePath: string): string {
-    return `/${imagePath}`;
+    return imagePath;
   }
 
   async function handleExport() {

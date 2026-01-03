@@ -18,7 +18,7 @@
 <aside class="sidebar">
   <div class="drag-region title-bar"></div>
   <div class="logo">
-    <img src="/logo.webp" alt="Batched" class="logo-img" />
+    <img src="logo.webp" alt="Batched" class="logo-img" />
   </div>
 
   <nav class="nav">

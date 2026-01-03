@@ -32,8 +32,8 @@
   );
 
   function getImageUrl(imagePath: string): string {
-    // Images are in public/ingredients/, served at root by Vite
-    return `/${imagePath}`;
+    // Use relative path - works in both dev and packaged app
+    return imagePath;
   }
 
   function handleQuantityChange(e: Event) {
