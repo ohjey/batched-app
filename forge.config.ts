@@ -7,6 +7,9 @@ import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
 
+// Custom signing script
+const signApp = require('./scripts/signApp.cjs');
+
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
@@ -14,6 +17,14 @@ const config: ForgeConfig = {
     executableName: 'Batched',
   },
   rebuildConfig: {},
+  hooks: {
+    postPackage: async (_config, packageResult) => {
+      // Sign the app after packaging
+      if (process.platform === 'darwin') {
+        await signApp(packageResult.outputPaths[0], 'Batched');
+      }
+    },
+  },
   makers: [
     new MakerSquirrel({}),
     new MakerZIP({}, ['darwin']),

@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron';
+import { ipcMain, app } from 'electron';
 import { IPC } from '../shared/ipc-channels';
 import * as db from './database';
 import { consolidateIngredients } from './consolidator';
@@ -71,5 +71,10 @@ export function registerIpcHandlers(): void {
 
   ipcMain.handle(IPC.SHOPPING.EXPORT_REMINDERS, async (_, ingredients: ConsolidatedIngredient[]) => {
     await exportToReminders(ingredients);
+  });
+
+  // App handlers
+  ipcMain.handle(IPC.APP.GET_VERSION, () => {
+    return app.getVersion();
   });
 }

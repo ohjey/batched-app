@@ -2,7 +2,7 @@ import { app, dialog, shell, BrowserWindow } from 'electron';
 import https from 'node:https';
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, execSync } from 'node:child_process';
 
 const GITHUB_OWNER = 'ohjey';
 const GITHUB_REPO = 'batched-app';
@@ -268,9 +268,9 @@ export async function checkForUpdates(silent = false): Promise<void> {
     const backupPath = `${appBundlePath}.backup`;
 
     try {
-      // Remove old backup if exists
+      // Remove old backup if exists (use shell to avoid asar issues)
       if (fs.existsSync(backupPath)) {
-        fs.rmSync(backupPath, { recursive: true });
+        execSync(`rm -rf "${backupPath}"`);
       }
 
       // Move current app to backup
@@ -282,7 +282,7 @@ export async function checkForUpdates(silent = false): Promise<void> {
       // Clean up
       fs.unlinkSync(zipPath);
       fs.rmSync(extractDir, { recursive: true });
-      fs.rmSync(backupPath, { recursive: true });
+      execSync(`rm -rf "${backupPath}"`);
 
       // Restart the app
       app.relaunch();

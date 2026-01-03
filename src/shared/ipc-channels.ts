@@ -15,4 +15,7 @@ export const IPC = {
     CONSOLIDATE: 'shopping:consolidate',
     EXPORT_REMINDERS: 'shopping:exportReminders',
   },
+  APP: {
+    GET_VERSION: 'app:getVersion',
+  },
 } as const;

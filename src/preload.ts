@@ -33,6 +33,9 @@ const api = {
     exportReminders: (ingredients: ConsolidatedIngredient[]): Promise<void> =>
       ipcRenderer.invoke(IPC.SHOPPING.EXPORT_REMINDERS, ingredients),
   },
+  app: {
+    getVersion: (): Promise<string> => ipcRenderer.invoke(IPC.APP.GET_VERSION),
+  },
 };
 
 contextBridge.exposeInMainWorld('api', api);

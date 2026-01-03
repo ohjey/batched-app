@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   interface Props {
     activeSection: 'recipes' | 'shop';
     onNavigate: (section: 'recipes' | 'shop') => void;
@@ -6,6 +8,11 @@
   }
 
   let { activeSection, onNavigate, shopItemCount = 0 }: Props = $props();
+  let version = $state('');
+
+  onMount(async () => {
+    version = await window.api.app.getVersion();
+  });
 </script>
 
 <aside class="sidebar">
@@ -43,6 +50,8 @@
       {/if}
     </button>
   </nav>
+
+  <div class="version">v{version}</div>
 </aside>
 
 <style>
@@ -125,5 +134,13 @@
   .nav-item.active .badge {
     background: white;
     color: var(--accent-color);
+  }
+
+  .version {
+    margin-top: auto;
+    padding: 16px 20px;
+    font-size: 11px;
+    color: var(--text-tertiary, #999);
+    opacity: 0.7;
   }
 </style>
